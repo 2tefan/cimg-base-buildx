@@ -37,7 +37,7 @@ If you want to push it:
 
 To build it with cimg version `stable-18.04`, buildx version `0.4.1` and push it to `2tefan/cimg-base-buildx:stable-18.04-0.4.1` the following command would be needed:
 
-`./build.sh -p --cimg=stable-18.04 --buildx=0.4.1 --dockerrepo=2tefan/cimg-base-buildx:stable-18.04-0.4.1`
+`./build.sh -p --cimg=stable-18.04 --buildx=0.4.1 --dockerrepo=2tefan/cimg-base-buildx`
 
 But because the default values could also be used, it can be shorten to:
 

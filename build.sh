@@ -1,7 +1,7 @@
 #!/bin/sh
 
-_CIMG_VERSION=stable-18.04
-_BUILDX_VERSION=0.4.1
+_CIMG_VERSION="stable-18.04"
+_BUILDX_VERSION="0.4.1" 
 _DOCKER_REPOSITORY="2tefan/cimg-base-buildx"
 _APPEND_TAG=""
 

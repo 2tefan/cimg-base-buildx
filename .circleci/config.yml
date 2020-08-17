@@ -32,7 +32,7 @@ workflows:
     jobs:
       - build-and-push
       - build-and-push
-         cimg-version: "stable-20.04"
+          cimg-version: "stable-20.04"
       - build-and-push
           buildx-version: "0.4.0"
       - build-and-push

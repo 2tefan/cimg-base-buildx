@@ -7,7 +7,7 @@ jobs:
       cimg-version:
         description: Version of cimg
         type: string
-        default: 18.04
+        default: "18.04"
     docker:
       - image: docker:latest
     working_directory: ~/cimg-base-buildx

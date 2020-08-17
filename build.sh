@@ -42,6 +42,6 @@ docker build \
     --tag ${DOCKER_REPOSITORY}:${CIMG_VERSION}-${BUILDX_VERSION} .
 
 if [ ${PUSH} = "YES" ]; then
-    docker login
+    docker login --username "${DOCKER_USERNAME}" --pasword "${DOCKER_PASSWORD}"
     docker push ${DOCKER_REPOSITORY}:${CIMG_VERSION}-${BUILDX_VERSION}
 fi

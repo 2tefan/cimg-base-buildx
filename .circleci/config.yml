@@ -23,9 +23,9 @@ jobs:
           name: Build docker image
           command: |
             ./build.sh --cimg-version="<< parameters.cimg-version >>" \
-                      --buildx-version="<< parameters.buildx-version >>" \
-                      --appendtag="-<< pipeline.git.revision >>"
-                      --push
+                       --buildx-version="<< parameters.buildx-version >>" \
+                       --appendtag="-<< pipeline.git.revision >>" \
+                       --push
                               
 
 workflows:

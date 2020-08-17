@@ -27,19 +27,15 @@ for arg in "$@"; do
         ;;
     --cimg=* | --cimg-version=* | --cv=* | --CIMG_VERSION=*)
         CIMG_VERSION="${arg#*=}"
-        shift
         ;;
     --buildx=* | --buildx-version=* | --bv=* | --BUILDX_VERSION=*)
         BUILDX_VERSION="${arg#*=}"
-        shift
         ;;
     --dockerrepo=* | --docker-repository=* | --dr=* | --DOCKER_REPOSITORY=*)
         DOCKER_REPOSITORY="${arg#*=}"
-        shift
         ;;
     --appendtag=* | --append-tag=* | --at=* | --APPEND_TAG=*)
         APPEND_TAG="${arg#*=}"
-        shift
         ;;
     esac
 done

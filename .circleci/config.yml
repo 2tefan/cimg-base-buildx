@@ -2,7 +2,6 @@ version: 2.1
 
 jobs:
   build-and-push:
-    name: cimg-base-buildx build and push
     description: Builds the image and pushes it.
     parameters:
       cimg-version:

@@ -21,10 +21,11 @@ jobs:
           version: 19.03.12
       - run:
           name: Build docker image
-          command: ./build.sh --cimg-version="<< parameters.cimg-version >>" \
+          command: ./build.sh --push \
+                              --cimg-version="<< parameters.cimg-version >>" \
                               --buildx-version="<< parameters.buildx-version >>" \
-                              --appendtag="-<< pipeline.git.revision >>" \
-                              --push
+                              --appendtag="-<< pipeline.git.revision >>"
+                              
 
 workflows:
   version: 2

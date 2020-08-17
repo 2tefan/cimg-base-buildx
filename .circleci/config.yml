@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alpine:latest
+      - image: docker:latest
     working_directory: ~/cimg-base-buildx
     steps:
       - checkout

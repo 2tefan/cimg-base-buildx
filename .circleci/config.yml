@@ -1,7 +1,14 @@
 version: 2.1
 
 jobs:
-  build:
+  build-and-push:
+    name: cimg-base-buildx build and push
+    description: Builds the image and pushes it.
+    parameters:
+      cimg-version:
+        description: Version of cimg
+        type: string
+        default: 18.04
     docker:
       - image: docker:latest
     working_directory: ~/cimg-base-buildx
@@ -11,10 +18,10 @@ jobs:
           version: 19.03.12
       - run:
           name: Build docker image
-          command: ./build.sh --appendtag="-<< pipeline.git.revision >>" --push
+          command: ./build.sh --cimg-version="<< parameters.cimg-version >>" --appendtag="-<< pipeline.git.revision >>" --push
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - build-and-push

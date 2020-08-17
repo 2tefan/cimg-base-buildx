@@ -1,9 +1,20 @@
 #!/bin/sh
 
-CIMG_VERSION=stable-18.04
-BUILDX_VERSION=0.4.1
+_CIMG_VERSION=stable-18.04
+_BUILDX_VERSION=0.4.1
+_DOCKER_REPOSITORY="2tefan/cimg-base-buildx"
+
 PUSH=NO
-DOCKER_REPOSITORY="2tefan/cimg-base-buildx"
+
+if [ -z "${CIMG_VERSION}" ]; then
+   CIMG_VERSION="${_CIMG_VERSION}"
+fi
+if [ -z "${_BUILDX_VERSION}" ]; then
+   BUILDX_VERSION="${_BUILDX_VERSION}"
+fi
+if [ -z "${DOCKER_REPOSITORY}" ]; then
+   DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
+fi
 
 for arg in "$@"; do
     case "${arg}" in

@@ -7,7 +7,11 @@ jobs:
       cimg-version:
         description: Version of cimg
         type: string
-        default: "18.04"
+        default: "stable-18.04"
+      buildx-version:
+        description: Version of buildx
+        type: string
+        default: "0.4.1"
     docker:
       - image: docker:latest
     working_directory: ~/cimg-base-buildx
@@ -17,7 +21,10 @@ jobs:
           version: 19.03.12
       - run:
           name: Build docker image
-          command: ./build.sh --cimg-version="<< parameters.cimg-version >>" --appendtag="-<< pipeline.git.revision >>" --push
+          command: ./build.sh --cimg-version="<< parameters.cimg-version >>" \
+                              --buildx-version="<< parameters.buildx-version >>" \
+                              --appendtag="-<< pipeline.git.revision >>" \
+                              --push
 
 workflows:
   version: 2

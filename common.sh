@@ -3,6 +3,7 @@
 _CIMG_VERSION="stable-18.04"
 _BUILDX_VERSION="0.4.1"
 _DOCKER_REPOSITORY="2tefan/cimg-base-buildx"
+_DOCKER_REPOSITORY_DEV="2tefan/cimg-base-buildx-dev"
 _APPEND_TAG="$(git rev-parse HEAD)"
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
@@ -14,22 +15,26 @@ fi
 if [ -z "${BUILDX_VERSION}" ]; then
     BUILDX_VERSION="${_BUILDX_VERSION}"
 fi
-if [ -z "${DOCKER_REPOSITORY}" ]; then
-    DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
-fi
 if [ ! -z "${CIRCLE_BRANCH}" ]; then
     BRANCH="${CIRCLE_BRANCH}"
 fi
 if [ -z "${APPEND_TAG}" ]; then
     case "${BRANCH}" in
-    develop)
-        APPEND_TAG="-dev"
-        ;;
     master)
         APPEND_TAG=""
         ;;
     *)
         APPEND_TAG="-${_APPEND_TAG}"
+        ;;
+    esac
+fi
+if [ -z "${DOCKER_REPOSITORY}" ]; then
+    case "${BRANCH}" in
+    master)
+        DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
+        ;;
+    *)
+        DOCKER_REPOSITORY="${_DOCKER_REPOSITORY_DEV}"
         ;;
     esac
 fi

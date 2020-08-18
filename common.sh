@@ -17,6 +17,9 @@ fi
 if [ -z "${DOCKER_REPOSITORY}" ]; then
     DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
 fi
+if [ ! -z "${CIRCLE_BRANCH}" ]; then
+    BRANCH="${CIRCLE_BRANCH}"
+fi
 if [ -z "${APPEND_TAG}" ]; then
     case "${BRANCH}" in
     develop)
@@ -29,9 +32,6 @@ if [ -z "${APPEND_TAG}" ]; then
         APPEND_TAG="-${_APPEND_TAG}"
         ;;
     esac
-fi
-if [ ! -z "${CIRCLE_BRANCH}" ]; then
-    BRANCH="${CIRCLE_BRANCH}"
 fi
 
 for arg in "$@"; do

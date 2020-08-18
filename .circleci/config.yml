@@ -20,6 +20,9 @@ jobs:
       - setup_remote_docker:
           version: 19.03.12
       - run:
+          name: Install git
+          command: apk add git
+      - run:
           name: Build docker image
           command: |
             ./build.sh --cimg-version="<< parameters.cimg-version >>" \

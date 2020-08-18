@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. $(dirname $0)/common.sh/
+. $(dirname $0)/common.sh
 
 curl -i -X DELETE \
                  -H "Accept: application/json" \

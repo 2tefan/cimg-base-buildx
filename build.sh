@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. $(dirname $0)/common.sh/
+. $(dirname $0)/common.sh
 
 docker build \
     --build-arg CIMG_VERSION=${CIMG_VERSION} \

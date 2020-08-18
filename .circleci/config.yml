@@ -24,7 +24,6 @@ jobs:
           command: |
             ./build.sh --cimg-version="<< parameters.cimg-version >>" \
                        --buildx-version="<< parameters.buildx-version >>" \
-                       --appendtag="-<< pipeline.git.revision >>" \
                        --push
                               
 
@@ -33,6 +32,7 @@ workflows:
   build-and-deploy:
     jobs:
       - build-and-push:
+          name: build | << matrix.cimg-version >> |  << buildx.cimg-version >>
           matrix:
             parameters:
               cimg-version: ["stable-18.04", "stable-20.04"]

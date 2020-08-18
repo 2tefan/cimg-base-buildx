@@ -1,23 +1,34 @@
 #!/bin/sh
 
 _CIMG_VERSION="stable-18.04"
-_BUILDX_VERSION="0.4.1" 
+_BUILDX_VERSION="0.4.1"
 _DOCKER_REPOSITORY="2tefan/cimg-base-buildx"
-_APPEND_TAG=""
+_APPEND_TAG="$(git rev-parse HEAD)"
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
 PUSH=NO
 
 if [ -z "${CIMG_VERSION}" ]; then
-   CIMG_VERSION="${_CIMG_VERSION}"
+    CIMG_VERSION="${_CIMG_VERSION}"
 fi
 if [ -z "${BUILDX_VERSION}" ]; then
-   BUILDX_VERSION="${_BUILDX_VERSION}"
+    BUILDX_VERSION="${_BUILDX_VERSION}"
 fi
 if [ -z "${DOCKER_REPOSITORY}" ]; then
-   DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
+    DOCKER_REPOSITORY="${_DOCKER_REPOSITORY}"
 fi
 if [ -z "${APPEND_TAG}" ]; then
-   APPEND_TAG="${_APPEND_TAG}"
+    case "${BRANCH}" in
+    develop)
+        APPEND_TAG="-dev"
+        ;;
+    master)
+        APPEND_TAG=""
+        ;;
+    *)
+        APPEND_TAG="-${_APPEND_TAG}"
+        ;;
+    esac
 fi
 
 for arg in "$@"; do

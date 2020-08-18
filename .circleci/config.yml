@@ -1,0 +1,72 @@
+version: 2.1
+
+jobs:
+  build-and-push:
+    description: Builds the image and pushes it.
+    parameters:
+      cimg-version:
+        description: Version of cimg
+        type: string
+        default: "stable-18.04"
+      buildx-version:
+        description: Version of buildx
+        type: string
+        default: "0.4.1"
+    docker:
+      - image: docker:latest
+    working_directory: ~/cimg-base-buildx
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - run:
+          name: Install git
+          command: apk add git
+      - run:
+          name: Build docker image
+          command: |
+            ./build.sh --cimg-version="<< parameters.cimg-version >>" \
+                       --buildx-version="<< parameters.buildx-version >>" \
+                       --push
+  cleanup:
+    description: Removes all dev images
+    parameters:
+      cimg-version:
+        description: Version of cimg
+        type: string
+        default: "stable-18.04"
+      buildx-version:
+        description: Version of buildx
+        type: string
+        default: "0.4.1"
+    docker:
+      - image: alpine:latest
+    steps:
+      - checkout
+      - run:
+          name: Install git & cURL
+          command: apk add git curl
+      - run:
+          name: Remove from dockerhub
+          command: |
+            ./cleanup.sh --cimg-version="<< parameters.cimg-version >>" \
+                         --buildx-version="<< parameters.buildx-version >>"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-and-push:
+          matrix:
+            parameters:
+              cimg-version: ["stable-18.04", "stable-20.04"]
+              buildx-version: ["0.4.0", "0.4.1"]
+          name: build | << matrix.cimg-version >> |  << matrix.buildx-version >>
+      - cleanup:
+          matrix:
+            parameters:
+              cimg-version: ["stable-18.04", "stable-20.04"]
+              buildx-version: ["0.4.0", "0.4.1"]
+          name: cleanup | << matrix.cimg-version >> |  << matrix.buildx-version >>
+          requires:
+            - build | << matrix.cimg-version >> |  << matrix.buildx-version >>

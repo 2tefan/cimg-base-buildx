@@ -28,7 +28,28 @@ jobs:
             ./build.sh --cimg-version="<< parameters.cimg-version >>" \
                        --buildx-version="<< parameters.buildx-version >>" \
                        --push
-                              
+  cleanup:
+    description: Removes all dev images
+    parameters:
+      cimg-version:
+        description: Version of cimg
+        type: string
+        default: "stable-18.04"
+      buildx-version:
+        description: Version of buildx
+        type: string
+        default: "0.4.1"
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Install cURL
+          command: apk add curl
+      - run:
+          name: Remove from dockerhub
+          command: |
+            ./cleanup.sh --cimg-version="<< parameters.cimg-version >>" \
+                       --buildx-version="<< parameters.buildx-version >>"
 
 workflows:
   version: 2
@@ -40,4 +61,10 @@ workflows:
               cimg-version: ["stable-18.04", "stable-20.04"]
               buildx-version: ["0.4.0", "0.4.1"]
           name: build | << matrix.cimg-version >> |  << matrix.buildx-version >>
+      - cleanup:
+          matrix:
+            parameters:
+              cimg-version: ["stable-18.04", "stable-20.04"]
+              buildx-version: ["0.4.0", "0.4.1"]
+          name: cleanup | << matrix.cimg-version >> |  << matrix.buildx-version >>
       

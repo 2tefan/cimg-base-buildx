@@ -32,9 +32,9 @@ workflows:
   build-and-deploy:
     jobs:
       - build-and-push:
-          name: build | << matrix.cimg-version >> |  << buildx.cimg-version >>
           matrix:
             parameters:
               cimg-version: ["stable-18.04", "stable-20.04"]
               buildx-version: ["0.4.0", "0.4.1"]
+          name: build | << matrix.cimg-version >> |  << buildx.buildx-version >>
       

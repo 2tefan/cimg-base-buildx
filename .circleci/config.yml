@@ -44,8 +44,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install cURL
-          command: apk add curl
+          name: Install git & cURL
+          command: apk add git curl
       - run:
           name: Remove from dockerhub
           command: |

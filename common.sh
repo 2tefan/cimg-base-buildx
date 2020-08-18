@@ -30,7 +30,7 @@ if [ -z "${APPEND_TAG}" ]; then
         ;;
     esac
 fi
-if [ -z "${CIRCLE_BRANCH}" ]; then
+if [ ! -z "${CIRCLE_BRANCH}" ]; then
     BRANCH="${CIRCLE_BRANCH}"
 fi
 

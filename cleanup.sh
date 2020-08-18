@@ -1,6 +1,7 @@
 #!/bin/sh -x
 
 . $(dirname $0)/common.sh
+echo ${BRANCH}
 
 case "${BRANCH}" in
 master)

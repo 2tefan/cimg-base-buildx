@@ -28,6 +28,30 @@ jobs:
             ./build.sh --cimg-version="<< parameters.cimg-version >>" \
                        --buildx-version="<< parameters.buildx-version >>" \
                        --push
+  check-image:
+    description: Checks the image with buildx
+    parameters:
+      cimg-version:
+        description: Version of cimg
+        type: string
+        default: "stable-18.04"
+      buildx-version:
+        description: Version of buildx
+        type: string
+        default: "0.4.1"
+    docker:
+      - image: ${DOCKER_REPOSITORY}:<< parameters.cimg-version >>-<< parameters.buildx-version >>-<< pipeline.git.revision >>
+    working_directory: ~/cimg-base-buildx
+    steps:
+      - setup_remote_docker:
+          version: 19.03.12
+      - run:
+          name: Test buildx
+          command: |
+            docker buildx version && \
+            docker context create dockerContext && \
+            docker buildx create --name buildxContext --platform "${BUILDX_PLATFORM}" --use dockerContext
+    
   cleanup:
     description: Removes all dev images
     parameters:
